@@ -1,4 +1,4 @@
-gem 'activerecord', '=4.2.7'
+gem 'activerecord', '=4.2.10'
 require 'active_record'
 require 'mini_record'
 
@@ -25,9 +25,6 @@ end
 
 Contact.auto_upgrade!
 
-cap = Contact.create("Steve", "Rogers", "cap@teamcap.com", "has a shield")
-marvel = Contact.create("Carol", "Danvers", "cdanvers@usaf.gov", "has kree powers")
-iron_man = Contact.create("Tony", "Stark", "tonystark@starkcorp.com", "he's iron man")
 
 # puts Contact.all.inspect
 # #

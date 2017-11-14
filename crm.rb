@@ -48,17 +48,20 @@ class CRM
     print 'Enter a Note: '
     note = gets.chomp
 
-    Contact.create(first_name, last_name, email, note)
+    contact = Contact.create(
+      first_name: first_name,
+      last_name:  last_name,
+      email:      email,
+      note:       note)
   end
 
   def modify_existing_contact
     puts "Please provide the id of the contact you would like to update:"
     response = gets.to_i
-    position = response-1
     if response <1 || response> Contact.all.length
       puts "invalid id."
     else
-      user = Contact.find(position)
+      user = Contact.find(response)
     end
     puts "Updating #{user.first_name}'s contact."
     puts "Please enter the attribute you would like to update"
@@ -69,7 +72,7 @@ class CRM
     else
       puts "Please provide the new #{criteria}"
       new_value = gets.chomp
-      result = user.update(position, criteria, new_value)
+      result = user.update({criteria=>new_value})
       puts user.id
       puts user.full_name
       puts user.email
@@ -80,7 +83,7 @@ class CRM
   def delete_contact
     puts "Please provide the id of the contact you would like to delete:"
     response = gets.to_i
-    Contact.all[0].delete(response-1)
+    Contact.find(response).delete
     puts "Contact deleted!"
   end
 
@@ -102,7 +105,7 @@ class CRM
     else
       puts "Please provide the #{criteria} of the contact you would like to retrieve:"
       response = gets.chomp
-      result = Contact.find_by(criteria, response)
+      result = Contact.find_by({criteria =>response})
       if result == nil
         puts "#{criteria} #{response} not found. "
       else
